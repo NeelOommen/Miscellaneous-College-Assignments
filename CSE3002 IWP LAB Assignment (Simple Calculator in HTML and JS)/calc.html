@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Calculator</h1>
+    <form name="calcForm">
+        <input type="text" name="expression" />
+        <!--Number buttons-->
+        <br><br>
+        <input type="button" name="num1" value="1" onclick="modifyString(1)";/>
+        <input type="button" name="num2" value="2" onclick="modifyString(2)";/>
+        <input type="button" name="num3" value="3" onclick="modifyString(3)";/>
+        <br>
+        <input type="button" name="num4" value="4" onclick="modifyString(4);"/>
+        <input type="button" name="num5" value="5" onclick="modifyString(5);"/>
+        <input type="button" name="num6" value="6" onclick="modifyString(6);"/>
+        <br>
+        <input type="button" name="num7" value="7" onclick="modifyString(7);"/>
+        <input type="button" name="num8" value="8" onclick="modifyString(8);"/>
+        <input type="button" name="num9" value="9" onclick="modifyString(9);"/>
+        <br>
+        <input type="button" name="num0" value="0" onclick="modifyString(0);"/>
+        <br><br>
+        <input type="button" name="opPlus" value="+" onclick="modifyString('+');"/>
+        <input type="button" name="opSub" value="-" onclick="modifyString('-');"/>
+        <input type="button" name="opMult" value="*" onclick="modifyString('*');"/>
+        <input type="button" name="opDiv" value="/" onclick="modifyString('/');"/>
+        <br>
+        <input type="button" name="equal" value="=" onclick="evaluateExpr();"/>
+        <input type="button" name="backwards" value="Reset" onclick="res();"/>
+    </form>
+    <script>
+        var exprStr = "";
+
+        function updateExprStr(){
+            document.calcForm.expression.value = exprStr;
+        }
+
+        var expUpdate = setInterval(updateExprStr, 16);
+
+        function modifyString(a){
+            exprStr = exprStr + a;
+        }
+
+        function res(){
+            exprStr = ""
+        }
+
+        function evaluateExpr(){
+            exprStr = eval(exprStr);
+        }
+
+    </script>
+</body>
+</html>
