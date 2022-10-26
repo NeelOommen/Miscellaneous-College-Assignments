@@ -25,6 +25,38 @@ def hexToBin(inpStr):
     return s
 
 
+def binToHex(inpStr):
+    key = {
+        '0000': '0',
+        '0001': '1',
+        '0010': '2',
+        '0011': '3',
+        '0100': '4',
+        '0101': '5',
+        '0110': '6',
+        '0111': '7',
+        '1000': '8',
+        '1001': '9',
+        '1010': 'A',
+        '1011': 'B',
+        '1100': 'C',
+        '1101': 'D',
+        '1110': 'E',
+        '1111': 'F'
+    }
+
+    new_str = ''
+
+    i = 0
+    while i < len(inpStr):
+        temp_str = inpStr[i:i+4]
+        new_str += key[temp_str]
+        i += 4
+    
+    return new_str
+    
+
+
 def initialPermutation(inpStr):
     ip = [58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,
     62,54,46,38,30,22,14,6,64,56,48,40,32,24,16,8,
@@ -102,6 +134,25 @@ def bitwiseXOR(text, key):
     for i in range(0, len(text)):
         new_str += ('1' if (text[i] == key[i]) else '0')
 
+    return new_str
+
+    
+def finalPermutation(inpStr):
+    perm_map = [40, 8, 48, 16, 56, 24, 64, 32,
+    39, 7, 47, 15, 55, 23, 63, 31,
+    38, 6, 46, 14, 54, 22, 62, 30,
+    37, 5, 45, 13, 53, 21, 61, 29,
+    36, 4, 44, 12, 52, 20, 60, 28,
+    35, 3, 43, 11, 51, 19, 59, 27,
+    34, 2, 42, 10, 50, 18, 58, 26,
+    33, 1, 41, 9, 49, 17, 57, 25]
+
+    per_str = ""
+    for i in range(0, len(perm_map)):
+        per_str += inpStr[perm_map[i] - 1]
+
+    return per_str
+
 
 plain_text = '12345ABCD1325368'
 cipher_key = 'AABC398134ABEEF1'
@@ -123,5 +174,11 @@ for i in range(0,16):
     expanded_r = expandTo48Bit(rStr)
 
     #xor halves with key
-    xor_l = bitwiseXOR(expanded_l, key48bit)
-    xor_r = bitwiseXOR(expanded_r, key48bit)
+    lStr = bitwiseXOR(expanded_l, key48bit)
+    rStr = bitwiseXOR(expanded_r, key48bit)
+
+combined_string = lStr + rStr
+
+cipher_text = finalPermutation(combined_string)
+
+print(f'The final generated cipher text is {cipher_text} (length of {len(cipher_text)} bits) or {binToHex(cipher_text)}')
